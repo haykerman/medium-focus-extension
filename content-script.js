@@ -1,31 +1,7 @@
 function hideElements() {
-  // const rightSidebar1 = document.getElementsByClassName(
-  //   "gg gh c gi h k j i bl gj gk gl"
-  // )[0];
-
-  // const rightSidebar2 = document.getElementsByClassName(
-  //   "dk dl c dm h k j i bl dn do dp"
-  // )[0];
-
-  // const rightSidebar3 = document.getElementsByClassName(
-  //   "dk dl dr qp h k j i bl dn do dp"
-  // )[0];
-
-  // if (rightSidebar1 && rightSidebar1.style.display != "none") {
-  //   rightSidebar1.style.display = "none";
-  // }
-
-  // if (rightSidebar2 && rightSidebar2.style.display != "none") {
-  //   rightSidebar2.style.display = "none";
-  // }
-
-  // if (rightSidebar3 && rightSidebar3.style.display != "none") {
-  //   rightSidebar3.style.display = "none";
-  // }
-
   const rightSidebar = document.getElementsByTagName("main")[0]?.nextSibling;
 
-  if (rightSidebar && rightSidebar.style.display != "none") {
+  if (rightSidebar?.style.display != "none") {
     rightSidebar.style.display = "none";
   }
 }
@@ -54,13 +30,10 @@ let observer = new MutationObserver((mutations) => {
   });
 
   if (realMutationCount > 0) {
-    console.log("realMutationCount", realMutationCount);
     main();
   }
 });
 
-// const subject = document.getElementsByTagName("main")[0];
-// const subject = document.body;
 const subject = document.getElementById("root");
 observer.observe(subject, {
   characterDataOldValue: true,
