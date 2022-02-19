@@ -1,4 +1,8 @@
 function hideElements() {
+  if (!chrome.runtime?.id) {
+    return;
+  }
+
   const isMedium = document.querySelector(
     'head meta[property="og:site_name"][content="medium" i]'
   );
@@ -7,30 +11,45 @@ function hideElements() {
     return;
   }
 
-  const rightSidebar = document.getElementsByTagName("main")[0]?.nextSibling;
-
-  if (rightSidebar?.style.display != "none") {
-    rightSidebar.style.display = "none";
+  const mainContent = document.getElementsByTagName("main")[0];
+  if (!mainContent) {
+    return;
   }
+
+  chrome.storage.sync.get(null, function (preferences) {
+    const rightSidebar = mainContent.nextSibling;
+    if (rightSidebar) {
+      rightSidebar.style.display = preferences.hideRightSidebar
+        ? "none"
+        : "block";
+    }
+
+    const leftSidebar = mainContent.previousSibling;
+    if (leftSidebar) {
+      leftSidebar.style.display = preferences.hideLeftSidebar
+        ? "none"
+        : "block";
+    }
+  });
 }
 
-const observer = new MutationObserver((mutations) => {
-  let realMutationCount = 0;
+function setupObserver() {
+  const observer = new MutationObserver((mutations) => {
+    let realMutationCount = 0;
 
-  mutations.forEach((mutation) => {
-    const oldValue = mutation.oldValue;
-    const newValue = mutation.target.textContent;
-    if (oldValue !== newValue) {
-      realMutationCount++;
+    mutations.forEach((mutation) => {
+      const oldValue = mutation.oldValue;
+      const newValue = mutation.target.textContent;
+      if (oldValue !== newValue) {
+        realMutationCount++;
+      }
+    });
+
+    if (realMutationCount > 0) {
+      hideElements();
     }
   });
 
-  if (realMutationCount > 0) {
-    hideElements();
-  }
-});
-
-function main() {
   const subject = document.getElementById("root");
 
   if (subject) {
@@ -41,8 +60,17 @@ function main() {
       characterData: true,
     });
   }
-
-  hideElements();
 }
+
+function main() {
+  hideElements();
+  setupObserver();
+}
+
+chrome.runtime.onMessage.addListener(function (request) {
+  if (request.message === "reload") {
+    hideElements();
+  }
+});
 
 main();

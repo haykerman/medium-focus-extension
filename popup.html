@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="popup.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <img src="images/logo48.png" />
+      <h2 class="title">Preferences</h2>
+
+      <span id="info" class="info"></span>
+
+      <div class="preference-list">
+        <label class="preference-input">
+          <input type="checkbox" id="right-sidebar" /> Hide right sidebar
+        </label>
+
+        <label class="preference-input">
+          <input type="checkbox" id="left-sidebar" /> Hide left sidebar
+        </label>
+      </div>
+
+      <hr />
+
+      <div class="actions">
+        <button id="reset" class="reset">Reset</button>
+        <button id="save" class="save">Save</button>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
