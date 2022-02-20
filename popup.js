@@ -1,11 +1,13 @@
 function updatePreferences() {
   const rightSidebar = document.getElementById("right-sidebar");
   const leftSidebar = document.getElementById("left-sidebar");
+  const footer = document.getElementById("footer");
 
   chrome.storage.sync.set(
     {
       hideRightSidebar: rightSidebar.checked,
       hideLeftSidebar: leftSidebar.checked,
+      hideFooter: footer.checked,
     },
     function () {
       publish();
@@ -23,11 +25,13 @@ function updatePreferences() {
 function resetPreferences() {
   document.getElementById("right-sidebar").checked = false;
   document.getElementById("left-sidebar").checked = false;
+  document.getElementById("footer").checked = false;
 
   chrome.storage.sync.set(
     {
       hideRightSidebar: false,
       hideLeftSidebar: false,
+      hideFooter: false,
     },
     function () {
       publish();
@@ -47,12 +51,14 @@ function loadPreferences() {
     {
       hideRightSidebar: false,
       hideLeftSidebar: false,
+      hideFooter: false,
     },
     function (preferences) {
       document.getElementById("right-sidebar").checked =
         preferences.hideRightSidebar;
       document.getElementById("left-sidebar").checked =
         preferences.hideLeftSidebar;
+      document.getElementById("footer").checked = preferences.hideFooter;
     }
   );
 }

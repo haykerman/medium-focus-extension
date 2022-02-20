@@ -42,7 +42,7 @@ img {
 
 .container {
   width: 14rem;
-  height: 16rem;
+  height: 18rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

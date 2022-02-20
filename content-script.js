@@ -16,6 +16,8 @@ function hideElements() {
     return;
   }
 
+  const footer = document.getElementsByTagName("footer")[0];
+
   chrome.storage.sync.get(null, function (preferences) {
     const rightSidebar = mainContent.nextSibling;
     if (rightSidebar) {
@@ -29,6 +31,10 @@ function hideElements() {
       leftSidebar.style.display = preferences.hideLeftSidebar
         ? "none"
         : "block";
+    }
+
+    if (footer) {
+      footer.style.display = preferences.hideFooter ? "none" : "flex";
     }
   });
 }
