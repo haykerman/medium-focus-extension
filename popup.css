@@ -63,6 +63,7 @@ img {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  row-gap: 0.5rem;
 }
 
 .preference-list .preference-input {

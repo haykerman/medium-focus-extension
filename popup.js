@@ -1,13 +1,11 @@
 function updatePreferences() {
   const rightSidebar = document.getElementById("right-sidebar");
-  const leftSidebar = document.getElementById("left-sidebar");
-  const footer = document.getElementById("footer");
+  const floatingActionBar = document.getElementById("floating-action-bar");
 
   chrome.storage.sync.set(
     {
       hideRightSidebar: rightSidebar.checked,
-      hideLeftSidebar: leftSidebar.checked,
-      hideFooter: footer.checked,
+      hideFloatingActionBar: floatingActionBar.checked,
     },
     function () {
       publish();
@@ -24,14 +22,12 @@ function updatePreferences() {
 
 function resetPreferences() {
   document.getElementById("right-sidebar").checked = false;
-  document.getElementById("left-sidebar").checked = false;
-  document.getElementById("footer").checked = false;
+  document.getElementById("floating-action-bar").checked = false;
 
   chrome.storage.sync.set(
     {
       hideRightSidebar: false,
-      hideLeftSidebar: false,
-      hideFooter: false,
+      hideFloatingActionBar: false,
     },
     function () {
       publish();
@@ -50,15 +46,13 @@ function loadPreferences() {
   chrome.storage.sync.get(
     {
       hideRightSidebar: false,
-      hideLeftSidebar: false,
-      hideFooter: false,
+      hideFloatingActionBar: false,
     },
     function (preferences) {
       document.getElementById("right-sidebar").checked =
         preferences.hideRightSidebar;
-      document.getElementById("left-sidebar").checked =
-        preferences.hideLeftSidebar;
-      document.getElementById("footer").checked = preferences.hideFooter;
+      document.getElementById("floating-action-bar").checked =
+        preferences.hideFloatingActionBar;
     }
   );
 }

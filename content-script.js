@@ -17,6 +17,7 @@ function hideElements() {
   }
 
   const footer = document.getElementsByTagName("footer")[0];
+  const floatingActionBar = footer.nextElementSibling.nextElementSibling;
 
   chrome.storage.sync.get(null, function (preferences) {
     const rightSidebar = mainContent.nextSibling;
@@ -26,15 +27,10 @@ function hideElements() {
         : "block";
     }
 
-    const leftSidebar = mainContent.previousSibling;
-    if (leftSidebar) {
-      leftSidebar.style.display = preferences.hideLeftSidebar
+    if (floatingActionBar) {
+      floatingActionBar.style.display = preferences.hideFloatingActionBar
         ? "none"
-        : "block";
-    }
-
-    if (footer) {
-      footer.style.display = preferences.hideFooter ? "none" : "flex";
+        : "";
     }
   });
 }
